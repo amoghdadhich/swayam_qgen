@@ -30,6 +30,8 @@ def generate_questions(keywords_list: list, context: str):
       response_dict = {}
       
       for i, input_dict in enumerate(input_dicts_list):
-        response_dict[keywords_list[i]] = query(input_dict)[0]['generated_text']
+        response_text = query(input_dict)
+        print(response_text)
+        response_dict[keywords_list[i]] = response_text[0]['generated_text']
       
       return response_dict
