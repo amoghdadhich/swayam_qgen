@@ -1,9 +1,9 @@
 import requests
 
-headers = {"Authorization": f"Bearer {API_TOKEN}"}
-
 API_TOKEN = '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'
 API_URL = "https://api-inference.huggingface.co/models/Salesforce/mixqg-3b"
+
+headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)
