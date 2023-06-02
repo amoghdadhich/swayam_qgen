@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 API_TOKEN = st.secrets["API_TOKEN"]
-API_URL = "https://api-inference.huggingface.co/models/Salesforce/mixqg-3b"
+API_URL = "https://api-inference.huggingface.co/models/Salesforce/mixqg-large"
 
 headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
