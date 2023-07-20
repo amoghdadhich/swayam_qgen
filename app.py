@@ -6,7 +6,7 @@ st.title("Question answer generation")
 st.markdown("The model outputs a set of questions and answers based on a paragraph")
 
 # Text input widget
-text = st.text_area(label="Enter text corpus here. Press ctrl + enter to generate questions")
+text = st.text_area(label="Enter text corpus here. Press ctrl + enter to generate keywords for this paragraph")
 
 # The current question generation pipeline has the following steps
 
@@ -16,10 +16,13 @@ text = st.text_area(label="Enter text corpus here. Press ctrl + enter to generat
 kw_extractor = yake.KeywordExtractor()
 keywords = kw_extractor.extract_keywords(text)
 
+# Initialize the set into which the keywords will be written
+if 'selected_keywords' not in st.session_state:
+    st.session_state.selected_keywords = set()
 
 # STEP 2: Decide how the keywords will be displayed
 # The keywords will be aligned in <NUM_COLS> columns with <NUM_WORDS_PER_COL> words in each column
-st.markdown("The keywords picked from the paragraph are given below")
+st.markdown("The keywords picked from the paragraph are given below. Click on the keyword to choose it")
 
 NUM_COLS = 5
 NUM_WORDS_PER_COL = 4
@@ -30,11 +33,6 @@ cols = st.columns(NUM_COLS)
 
 # STEP 3: Pick the keywords which will be used to generate questions
 # Each word is shown as a button which can be included in the set of keywords
-
-# Initialize the set in which the keywords will be stored
-if 'selected_keywords' not in st.session_state:
-    st.session_state.selected_keywords = set()
-
 
 for i,word in enumerate(keywords):
     column = i // NUM_WORDS_PER_COL                             # Pick the column in which the keyword would be displayed
