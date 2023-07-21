@@ -20,6 +20,7 @@ keywords = kw_extractor.extract_keywords(text)
 if 'selected_keywords' not in st.session_state:
     st.session_state.selected_keywords = set()
 
+
 # STEP 2: Decide how the keywords will be displayed
 # The keywords will be aligned in <NUM_COLS> columns with <NUM_WORDS_PER_COL> words in each column
 st.markdown("The keywords picked from the paragraph are given below. Click on the keyword to choose it")
@@ -47,16 +48,22 @@ for i,word in enumerate(keywords):
     if i == len(keywords) - 1:
         st.markdown("""---""")
 
-# STEP 4: Display each of the chosen keywords present in <selected_keywords
-selected_cols = st.columns(NUM_COLS)
+# Create a button to clear all the selected keywords
+clear_keywords_button = st.button(label= "Reset Selected Keywords List")
+if clear_keywords_button:
+    st.session_state.selected_keywords = set()
 
-# STEP 5: Add more keywords manually
+
+# STEP 4: Add more keywords manually
 
 # Text input widget
 new_keyword = st.text_input(label="Enter additional keywords here. Press Enter to add")
 
 if new_keyword != "":
     st.session_state.selected_keywords.add(new_keyword)
+
+# STEP 5: Display each of the chosen keywords present in <selected_keywords
+selected_cols = st.columns(NUM_COLS)
 
 if st.session_state.selected_keywords != set():
     for i,word in enumerate(st.session_state.selected_keywords):
