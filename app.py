@@ -48,11 +48,21 @@ for i,word in enumerate(keywords):
         st.markdown("""---""")
 
 # STEP 4: Display each of the chosen keywords present in <selected_keywords
+selected_cols = st.columns(NUM_COLS)
 
-for i,word in enumerate(st.session_state.selected_keywords):
-    column = i // NUM_WORDS_PER_COL
-    with cols[column]:
-        st.write(word)
+# STEP 5: Add more keywords manually
+
+# Text input widget
+new_keyword = st.text_input(label="Enter additional keywords here. Press Enter to add")
+
+if new_keyword != "":
+    st.session_state.selected_keywords.add(new_keyword)
+
+if st.session_state.selected_keywords != set():
+    for i,word in enumerate(st.session_state.selected_keywords):
+        column = i % NUM_COLS
+        with selected_cols[column]:
+            st.write(word)
 
 gen_qs_button = st.button(label= "GENERATE QUESTIONS")
 
